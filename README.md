@@ -1,6 +1,8 @@
 # Capstone Project: Azure Machine Learning Engineer
 
-*TODO:* Write a short introduction to your project.
+This is the Capstone project (last of the three projects) required for fulfillment of the Nanodegree Machine Learning Engineer with Microsoft Azure from Udacity. In this project, we use a dataset external to Azure ML ecosystem. 
+
+Azure Machine Learning Service is used to train models using both hyperdrive and automl and then deployment and testing.
 
 ## Project Set Up and Installation
 *OPTIONAL:* If your project has any special installation steps, this is where you should put it. To turn this project into a professional portfolio project, you are encouraged to explain how to set up this project in AzureML.
@@ -17,6 +19,9 @@ Download dataset from [here](https://archive.ics.uci.edu/ml/datasets/Divorce+Pre
 
 ### Task
 *TODO*: Explain the task you are going to be solving with this dataset and the features you will be using for it.
+
+We have a classification problem at hand. The dataset has 54 attributes/features used for prediction. The attributes are described as below.
+
 1. If one of us apologizes when our discussion deteriorates, the discussion ends.
 2. I know we can ignore our differences, even if things get hard sometimes.
 3. When we need it, we can take our discussions with my spouse from the beginning and correct it.
@@ -103,3 +108,6 @@ Download dataset from [here](https://archive.ics.uci.edu/ml/datasets/Divorce+Pre
 
 ## Standout Suggestions
 *TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
+
+## Citation
+Yöntem, M , Adem, K , İlhan, T , Kılıçarslan, S. (2019). DIVORCE PREDICTION USING CORRELATION BASED FEATURE SELECTION AND ARTIFICIAL NEURAL NETWORKS. Nevşehir Hacı Bektaş Veli University SBE Dergisi, 9 (1), 259-273.
