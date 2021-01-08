@@ -79,6 +79,8 @@ We have a classification problem at hand. The dataset has 54 attributes/features
 
 ### Access
 *TODO*: Explain how you are accessing the data in your workspace.
+The dataset has been uploaded into this github repository and it can be accessed using the link as below:
+https://raw.githubusercontent.com/khalidw/Capstone-Project-Azure-Machine-Learning-Engineer/master/divorce.csv
 
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
