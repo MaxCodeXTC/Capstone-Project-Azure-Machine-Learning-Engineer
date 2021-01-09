@@ -88,7 +88,13 @@ https://raw.githubusercontent.com/khalidw/Capstone-Project-Azure-Machine-Learnin
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+### AutoML Screenshots
+*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters
+
+**Run Details Widget**
+![autoML_runDetails](Images/autoML_runDetails.png)
+
+![autoML_runDetails_accuracy](Images/autoML_accuracy.png)
 
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
@@ -97,7 +103,20 @@ https://raw.githubusercontent.com/khalidw/Capstone-Project-Azure-Machine-Learnin
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
 
+### Hyperparameter Tuning Screenshots
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+
+**Run Details Widget**
+
+![hyperDrive_runDetails](Images/hyperDrive_runDetails.png)
+
+![hyperDrive_runDetails1](Images/hyperDrive_runDetails1.png)
+
+![hyperDrive_hyperParams](Images/hyperDrive_hyperParams.png)
+
+**Best Model**
+
+![hyperDrive_bestModel](Images/hyperDrive_bestModel.png)
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
