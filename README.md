@@ -97,7 +97,6 @@ label_column_name | The name of the label column | Class
 n_cross_validations | No. of cross validations to perform | 5 
 
 ### Results
-*TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 
 In our experiment we found out `SparseNormalizer GradientBoosting` to be the best model based on the accuracy metric. The accuracy score for this models was `0.9882352941176471`.
 
@@ -212,6 +211,14 @@ We use the environment used by the `best_run`, the environment can be retreived 
 For deployment we used Azure Container Instances with `cpu_cores = 1` and `memory_gb = 1`
 
 For Inference, the data passed to the model endpoint must be in JSON format. Following commands passes the data to the model and records the response; `response = service.run(input_data = test_sample)`
+
+Screenshots below show a demonstration of sample data response from the deployed model.
+
+**Demo**
+
+![deployResults](Images/deployResults.png)
+
+**Deployed Model**
 
 ![deployedModel](Images/deployedModel.png)
 
