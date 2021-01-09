@@ -2,7 +2,7 @@
 
 This is the Capstone project (last of the three projects) required for fulfillment of the Nanodegree Machine Learning Engineer with Microsoft Azure from Udacity. In this project, we use a dataset external to Azure ML ecosystem. 
 
-Azure Machine Learning Service is used to train models using both hyperdrive and automl and then deployment and testing.
+Azure Machine Learning Service and Jupyter Notebook is used to train models using both Hyperdrive and Auto ML and then the best of these models is deployed as an HTTP REST endpoint. The model endpoint is also tested to verify if it is working as intented by sending an HTTP POST request. Azure ML Studio graphical interface is not used in the entire exercise to encourage use of code which is better suited for automation and gives a data scientist more control over their experiment.
 
 ## Project Set Up and Installation
 *OPTIONAL:* If your project has any special installation steps, this is where you should put it. To turn this project into a professional portfolio project, you are encouraged to explain how to set up this project in AzureML.
@@ -12,7 +12,7 @@ Azure Machine Learning Service is used to train models using both hyperdrive and
 ### Overview
 In this dataset, we predict divorce among couples by using the Divorce Predictors Scale (DPS) on the basis of [Gottman couples therapy](https://www.gottman.com/blog/an-introduction-to-the-gottman-method-of-relationship-therapy/). The data was collected from seven different regions of Turkey, predominantly from the Black Sea region. Of the participants, 84 (49%) were divorced and 86 (51%) were married couples. Divorced participants answered the scale items by considering their marriages whereas, of the married participants, only those with happy marriages, without any thought of divorce, were included in the study.
 
-The dataset consists of 170 rows and 54 columns. You can read further about the dataset [here](https://dergipark.org.tr/en/pub/nevsosbilen/issue/46568/549416)
+The dataset consists of 170 rows/records/examples and 54 features/attributes/columns. Attribute columns are labeled as `Atr1` to `Atr54`, `Class` column predicts the divorce, a value of `1` means couple would end up in divorce. You can read further about the dataset [here](https://dergipark.org.tr/en/pub/nevsosbilen/issue/46568/549416)
 
 Download dataset from [here](https://archive.ics.uci.edu/ml/datasets/Divorce+Predictors+data+set)
 
@@ -20,7 +20,7 @@ Download dataset from [here](https://archive.ics.uci.edu/ml/datasets/Divorce+Pre
 ### Task
 *TODO*: Explain the task you are going to be solving with this dataset and the features you will be using for it.
 
-We have a classification problem at hand. The dataset has 54 attributes/features used for prediction. The attributes are described as below.
+We have a classification problem at hand. The dataset comprises of 54 attributes/features used for prediction, they have values within the range of `0-5`. The attributes are described as below.
 
 1. If one of us apologizes when our discussion deteriorates, the discussion ends.
 2. I know we can ignore our differences, even if things get hard sometimes.
