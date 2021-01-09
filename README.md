@@ -105,7 +105,7 @@ n_cross_validations | No. of cross validations to perform | 5
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 
-In our experiment we found out `TruncatedSVDWrapper LightGBM` and `VotingEnsemble` to be the best model based on the accuracy metric. The accuracy score for these models was `1` i.e. `100%`
+In our experiment we found out `TruncatedSVDWrapper LightGBM` and `VotingEnsemble` to be the best model based on the accuracy metric. The accuracy score for these models was `1` i.e. `100%`. Since `100%` is the maximum accuracy a model can have, no further improvement can be made. However, improvements in terms of looking for another model can be done if this model is slow in inference.
 
 The parameters for the model `TruncatedSVDWrapper LightGBM` are described in the table below.
 
@@ -154,9 +154,27 @@ verbose | -10
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
 
+We use Logistric Regression algorithm from the SKLearn framework in conjuction with hyperDrive for hyperparameter tuning. There are two hyperparamters for this experiment, **C** and **max_iter**. **C** is the inverse regularization strength whereas max_iter is the maximum iteration to converge for the SKLearn Logistic Regression.
+
+We have used random parameter sampling to sample over a discrete set of values. Random parameter sampling is great for discovery and getting hyperparameter combinations that you would not have guessed intuitively, although it often requires more time to execute.
+
+The parameter search space used for **C** is `[1,2,3,4,5]` and for **max_iter** is `[80,100,120,150,170,200]`
+
+The benchmark metric from model testing is then evaluated using hyperDrive early stopping policy. Execution of the pipeline is stopped if conditions specified by the policy are met.
+
+We have used the [BanditPolicy](https://docs.microsoft.com/en-us/python/api/azureml-train-core/azureml.train.hyperdrive.banditpolicy?view=azure-ml-py). This policy is based on slack factor/slack amount and evaluation interval. Bandit terminates runs where the primary metric is not within the specified slack factor/slack amount compared to the best performing run. This helps to improves computational efficiency.
+
+For this experiment the configuratin used is; `evaluation_interval=1`, `slack_factor=0.2`, and `delay_evaluation=5`. This configration means that the policy would be applied to every `1*5` iteration of the pipeline and if `1.2*`value of the benchmark metric for current iteration is smaller than the best metric value so far, the run will be cancelled.
 
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
+
+The highest accuracy that our Logistic Regression Model acheived was `0.9803921568627451`. The hyperparamteres that were used by this model are:
+
+Hyperparameter | Value
+-------------- | -----
+Regularization Strength (C) | 4.0
+Max Iterations (max_iter) | 80
 
 ### Hyperparameter Tuning Screenshots
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
