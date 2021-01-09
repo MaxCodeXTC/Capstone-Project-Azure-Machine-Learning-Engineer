@@ -79,14 +79,49 @@ We have a classification problem at hand. The dataset has 54 attributes/features
 
 ### Access
 *TODO*: Explain how you are accessing the data in your workspace.
+
 The dataset has been uploaded into this github repository and it can be accessed using the link as below:
+
 https://raw.githubusercontent.com/khalidw/Capstone-Project-Azure-Machine-Learning-Engineer/master/divorce.csv
 
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
 
+I used following 
+
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
+
+In our experiment we found out `TruncatedSVDWrapper LightGBM` and `VotingEnsemble` to be the best model based on the accuracy metric. The accuracy score for these models was `1` i.e. `100%`
+
+The parameters for the model `TruncatedSVDWrapper LightGBM` are described in the table below.
+
+Algorithm | Parameters | Values
+--------- | ---------- | ------
+TruncatedSVDWrapper | n_components | 0.5047368421052632
+ | random_state | None
+LightGBMClassifier | boosting_type | goss
+ | class_weight | None
+ | colsample_bytree | 0.5944444444444444
+ | importance_type | split
+ | learning_rate | 0.05263631578947369
+ | max_bin | 360
+ | max_depth | -1
+ | min_child_samples | 9
+ | min_child_weight | 0
+ | min_split_gain | 0.3684210526315789
+ | n_estimators | 400
+ | n_jobs | 1
+ | num_leaves | 89
+ | objective | None
+ | random_state | None
+ | reg_alpha | 0.5263157894736842
+ | reg_lambda | 0.5263157894736842
+ | silent | True
+ | subsample | 1
+ | subsample_for_bin | 200000
+ | subsample_freq | 0
+ | verbose | -10
 
 ### AutoML Screenshots
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters
