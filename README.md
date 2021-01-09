@@ -199,7 +199,19 @@ Max Iterations (max_iter) | 150
 ![hyperDrive_bestModel](Images/hyperDrive_bestModel.png)
 
 ## Model Deployment
-*TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
+
+To deploy a Model using Azure Machine Learning Service, we need following:
+1. A trained Model
+1. Inference configuration; includes scoring script and environment
+1. Deploy configuration; includes choice of deployment (ACI, AKS or local) and cpu/gpu/memory allocation
+
+Scoring script is generated when a model is created. It describes the input data that model will expect and passes it to the model for prediction and returns the results. Following command can be used to retreive the scoring script; `best_run.download_file('outputs/scoring_file_v_1_0_0.py', 'scoreScript.py')`.
+
+We use the environment used by the `best_run`, the environment can be retreived by `best_run.get_environment()`
+
+For deployment we used Azure Container Instances with `cpu_cores = 1` and `memory_gb = 1`
+
+For Inference, the data passed to the model endpoint must be in JSON format. Following commands passes the data to the model and records the response; `response = service.run(input_data = test_sample)`
 
 ![deployedModel](Images/deployedModel.png)
 
@@ -207,9 +219,9 @@ Max Iterations (max_iter) | 150
 
 The screencast shows the entire process of the working ML application, including a demonstration of:
 
-A working model
-Demo of the deployed model
-Demo of a sample request sent to the endpoint and its response
+1. A working model
+1. Demo of the deployed model
+1. Demo of a sample request sent to the endpoint and its response
 
 [![Capstone Project Azure Machine Learning Engineer](https://img.youtube.com/vi/GKzv8udPyNw/0.jpg)](https://www.youtube.com/watch?v=GKzv8udPyNw)
 
