@@ -4,9 +4,6 @@ This is the Capstone project (last of the three projects) required for fulfillme
 
 Azure Machine Learning Service and Jupyter Notebook is used to train models using both Hyperdrive and Auto ML and then the best of these models is deployed as an HTTP REST endpoint. The model endpoint is also tested to verify if it is working as intented by sending an HTTP POST request. Azure ML Studio graphical interface is not used in the entire exercise to encourage use of code which is better suited for automation and gives a data scientist more control over their experiment.
 
-## Project Set Up and Installation
-*OPTIONAL:* If your project has any special installation steps, this is where you should put it. To turn this project into a professional portfolio project, you are encouraged to explain how to set up this project in AzureML.
-
 ## Dataset
 
 ### Overview
@@ -18,7 +15,6 @@ Download dataset from [here](https://archive.ics.uci.edu/ml/datasets/Divorce+Pre
 
 
 ### Task
-*TODO*: Explain the task you are going to be solving with this dataset and the features you will be using for it.
 
 As we have to predict either of two states (Divorce/No Divorce), this problem is a Classification one. The 54 features that we will use for prediction are described below. Each feature can have a value form the list `[0, 1, 2, 3, 4]`.
 
@@ -78,7 +74,6 @@ As we have to predict either of two states (Divorce/No Divorce), this problem is
 54. I'm not afraid to tell my spouse about her/his incompetence.
 
 ### Access
-*TODO*: Explain how you are accessing the data in your workspace.
 
 The dataset has been uploaded into this github repository and it can be accessed using the link as below:
 
@@ -87,7 +82,6 @@ https://raw.githubusercontent.com/khalidw/Capstone-Project-Azure-Machine-Learnin
 We used method `from_delimited_files('webURL')` of the `TabularDatasetFactory` Class to retreive data from the csv file (link provided above).
 
 ## Automated ML
-*TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
 
 Configuration and settings used for the Automated ML experiment are described in the table below:
 
@@ -105,54 +99,63 @@ n_cross_validations | No. of cross validations to perform | 5
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 
-In our experiment we found out `TruncatedSVDWrapper LightGBM` and `VotingEnsemble` to be the best model based on the accuracy metric. The accuracy score for these models was `1` i.e. `100%`. Since `100%` is the maximum accuracy a model can have, no further improvement can be made. However, improvements in terms of looking for another model can be done if this model is slow in inference.
+In our experiment we found out `SparseNormalizer GradientBoosting` to be the best model based on the accuracy metric. The accuracy score for this models was `0.9882352941176471`.
 
-The parameters for the model `TruncatedSVDWrapper LightGBM` are described in the table below.
+The parameters for the model `SparseNormalizer GradientBoosting` are described in the table below.
 
-`TruncatedSVDWrapper`
-
-Parameters | Values
----------- | ------
-n_components | 0.5047368421052632
-random_state | None
-
-`LightGBMClassifier`
+`SparseNormalizer`
 
 Parameters | Values
 ---------- | ------
-boosting_type | goss
-class_weight | None
-colsample_bytree | 0.5944444444444444
-importance_type | split
-learning_rate | 0.05263631578947369
-max_bin | 360
-max_depth | -1
-min_child_samples | 9
-min_child_weight | 0
-min_split_gain | 0.3684210526315789
-n_estimators | 400
-n_jobs | 1
-num_leaves | 89
-objective | None
+copy | True
+norm | max
+
+`GradientBoosting`
+
+Parameters | Values
+---------- | ------
+ccp_alpha | 0.0
+criterion | mse
+init | None
+learning_rate | 0.1
+loss | deviance
+max_depth | 3
+max_features | sqrt
+max_leaf_nodes | None
+min_impurity_decrease | 0.0
+min_impurity_split | None
+min_samples_leaf | 0.08736842105263157
+min_samples_split | 0.15052631578947367
+min_weight_fraction_leaf | 0.0
+n_estimators | 25
+n_iter_no_change | None
+presort | deprecated
 random_state | None
-reg_alpha | 0.5263157894736842
-reg_lambda | 0.5263157894736842
-silent | True
-subsample | 1
-subsample_for_bin | 200000
-subsample_freq | 0
-verbose | -10
+subsample | 0.8105263157894737
+tol | 0.0001
+validation_fraction | 0.1
+verbose | 0
+warm_start | False
+
+**Improvements for autoML**
+
+1. Change experiment timeout, this would allow for more model experimentation but the longer runs may cost you more.
+1. We could use different primary metric as sometimes accuracy alone doesn't represent true picture of the model performance.
+1. Incresing the number of cross validations may reduce the bias in the model.
 
 ### AutoML Screenshots
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters
 
 **Run Details Widget**
+
 ![autoML_runDetails](Images/autoML_runDetails.png)
 
 ![autoML_runDetails_accuracy](Images/autoML_accuracy.png)
 
+**Best Model**
+
+![autoML_bestModel](Images/autoML_bestModel.png)
+
 ## Hyperparameter Tuning
-*TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
 
 We use Logistric Regression algorithm from the SKLearn framework in conjuction with hyperDrive for hyperparameter tuning. There are two hyperparamters for this experiment, **C** and **max_iter**. **C** is the inverse regularization strength whereas max_iter is the maximum iteration to converge for the SKLearn Logistic Regression.
 
@@ -160,24 +163,28 @@ We have used random parameter sampling to sample over a discrete set of values. 
 
 The parameter search space used for **C** is `[1,2,3,4,5]` and for **max_iter** is `[80,100,120,150,170,200]`
 
-The benchmark metric from model testing is then evaluated using hyperDrive early stopping policy. Execution of the pipeline is stopped if conditions specified by the policy are met.
+The benchmark metric (accuracy) is evaluated using hyperDrive early stopping policy. Execution of the experiment is stopped if conditions specified by the policy are met.
 
 We have used the [BanditPolicy](https://docs.microsoft.com/en-us/python/api/azureml-train-core/azureml.train.hyperdrive.banditpolicy?view=azure-ml-py). This policy is based on slack factor/slack amount and evaluation interval. Bandit terminates runs where the primary metric is not within the specified slack factor/slack amount compared to the best performing run. This helps to improves computational efficiency.
 
 For this experiment the configuratin used is; `evaluation_interval=1`, `slack_factor=0.2`, and `delay_evaluation=5`. This configration means that the policy would be applied to every `1*5` iteration of the pipeline and if `1.2*`value of the benchmark metric for current iteration is smaller than the best metric value so far, the run will be cancelled.
 
 ### Results
-*TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
 
 The highest accuracy that our Logistic Regression Model acheived was `0.9803921568627451`. The hyperparamteres that were used by this model are:
 
 Hyperparameter | Value
 -------------- | -----
-Regularization Strength (C) | 4.0
-Max Iterations (max_iter) | 80
+Regularization Strength (C) | 2.0
+Max Iterations (max_iter) | 150
+
+**Improvements for hyperDrive**
+
+1. Use Bayesian Parameter Sampling instead of Random; Bayesian sampling tries to intelligently pick the next sample of hyperparameters, based on how the previous samples performed, such that the new sample improves the reported primary metric.
+1. We could use different primary metric as sometimes accuracy alone doesn't represent true picture of the model performance.
+1. Increasing max total runs to try a lot more combinations of hyperparameters, this would have an impact on cost too.
 
 ### Hyperparameter Tuning Screenshots
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
 **Run Details Widget**
 
@@ -194,14 +201,17 @@ Max Iterations (max_iter) | 80
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
 
-## Screen Recording
-*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
-- A working model
-- Demo of the deployed  model
-- Demo of a sample request sent to the endpoint and its response
+![deployedModel](Images/deployedModel.png)
 
-## Standout Suggestions
-*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
+## Screen Recording
+
+The screencast shows the entire process of the working ML application, including a demonstration of:
+
+A working model
+Demo of the deployed model
+Demo of a sample request sent to the endpoint and its response
+
+[![Capstone Project Azure Machine Learning Engineer](https://img.youtube.com/vi/GKzv8udPyNw/0.jpg)](https://www.youtube.com/watch?v=GKzv8udPyNw)
 
 ## Citation
 Yöntem, M , Adem, K , İlhan, T , Kılıçarslan, S. (2019). DIVORCE PREDICTION USING CORRELATION BASED FEATURE SELECTION AND ARTIFICIAL NEURAL NETWORKS. Nevşehir Hacı Bektaş Veli University SBE Dergisi, 9 (1), 259-273.
