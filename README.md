@@ -210,7 +210,7 @@ We use the environment used by the `best_run`, the environment can be retreived 
 
 For deployment we used Azure Container Instances with `cpu_cores = 1` and `memory_gb = 1`
 
-For Inference, the data passed to the model endpoint must be in JSON format. Following commands passes the data to the model and records the response; `response = service.run(input_data = test_sample)`
+For Inference, the data passed to the model endpoint must be in JSON format. Following commands passes the data to the model as an HTTP POST request and records the response; `response = requests.post(service.scoring_uri, test_sample, headers=headers)`
 
 Screenshots below show a demonstration of sample data response from the deployed model.
 
