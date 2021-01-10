@@ -206,7 +206,7 @@ To deploy a Model using Azure Machine Learning Service, we need following:
 
 Scoring script is generated when a model is created. It describes the input data that model will expect and passes it to the model for prediction and returns the results. Following command can be used to retreive the scoring script; `best_run.download_file('outputs/scoring_file_v_1_0_0.py', 'scoreScript.py')`.
 
-We use the environment used by the `best_run`, the environment can be retreived by `best_run.get_environment()`
+We use the environment used by the `best_run`, the environment can be retreived by `best_run.get_environment()`. We can also download the yml file associated with the environment by using: `best_run.download_file('outputs/conda_env_v_1_0_0.yml', 'envFile.yml')`
 
 For deployment we used Azure Container Instances with `cpu_cores = 1` and `memory_gb = 1`
 
